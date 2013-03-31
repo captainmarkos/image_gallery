@@ -1,0 +1,105 @@
+<?php
+
+    // This script displays the actual image and is called from the overlay triggers
+    // in list_image.php.  It needs the images.id to find the image in the table.
+    //
+    // We would like to display the image as big as possible however each user is going
+    // to have different display resolutions and therefore we dont want to display the
+    // image to big on a small resolution.
+    //
+    // What we will do is find the size of the browser window (viewport) and this will
+    // will help us to display the image in a more appropriate size.  This of course is
+    // not a fix-all method but I think in most cases it will be suitable.
+    //
+    include 'lib/config.php';
+    include 'lib/functions.php';
+
+    if(!isset($_GET['image_id']) || $_GET['image_id'] == '') { exit; }
+
+    $image_id = $_GET['image_id'];
+
+    $sql = "SELECT id, title, image, display_image, description FROM images WHERE id=$image_id";
+    $result = mysql_query($sql) or die('ERROR: view_image.php failed. ' . mysql_error());
+    if(mysql_num_rows($result) == 0) { die('ERROR: view_image.php - No image found. '); }
+    $row = mysql_fetch_assoc($result);
+
+    $actual_image = WWWROOT_IMAGES_IMG_DIR . $row['image'];
+    $display_image = WWWROOT_IMAGES_IMG_DISPLAY_DIR . $row['display_image'];
+    $desc = $row['description'];
+    $desc = preg_replace("/\r/", "", htmlentities($desc, ENT_QUOTES));
+    $desc = preg_replace("/\n/", "<br>", $desc);
+    $title = $row['title'];
+
+    $imgData = getimagesize(IMAGES_IMG_DIR . $row['image']);
+    $sz_w = $imgData[0];
+    $sz_h = $imgData[1];
+
+    $base_url = "http://" . $_SERVER['SERVER_NAME'];
+    $direct_url = $base_url . WWWROOT_IMAGES_IMG_DIR . $row['image'];
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="gallery.css" />
+<script type="text/javascript">
+
+function setImgSize()
+{
+    var bwidth  = 0;
+    var bheight = 0;
+
+    if(document.body && document.body.offsetWidth) 
+    {
+        bwidth = document.body.offsetWidth;
+        bheight = document.body.offsetHeight;
+    }
+
+    if(document.compatMode=='CSS1Compat' &&
+       document.documentElement &&
+       document.documentElement.offsetWidth) 
+    {
+        bwidth = document.documentElement.offsetWidth;
+        bheight = document.documentElement.offsetHeight;
+    }
+
+    if(window.innerWidth && window.innerHeight) 
+    {
+        bwidth = window.innerWidth;
+        bheight = window.innerHeight;
+    }
+
+    //alert("browser size:" + bwidth + " x " + bheight);
+
+    // Because users will have different resolutions we set the width 
+    // appropriately which will of course adjust the height.
+
+    var viewimg = document.getElementById("viewimg");
+
+    if(bheight > 750) { viewimg.style.width = '800px'; }
+    else              { viewimg.style.width = '600px'; }
+}
+
+</script>
+</head>
+<body>
+
+<script type="text/javascript"> setImgSize(); </script>
+
+<img src="<?php echo $display_image; ?>" id="viewimg" style="min-height: 450px;" border="0" alt="<?php echo $title; ?>" />
+<br />
+<div class="overlay_imgtxt">
+
+    Title: <?php echo $title; ?>
+    <br />
+    Image Size: <?php echo "$sz_w x $sz_h"; ?>&nbsp;&nbsp;
+    <a class="iglink3" target="_blank" href="<?php echo $direct_url; ?>">Actual Image</a>
+    <br />
+    <?php if(!empty($desc)) { print "<br />" . $desc . "<br />"; } ?>
+
+</div>
+
+</body>
+</html>
+

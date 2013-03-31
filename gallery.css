@@ -1,0 +1,132 @@
+/* ----------------------------------------------------------------------------- */
+/* Image Gallery Style Sheet                            Mark Brettin  06/30/2011 */
+/*                                                                               */
+/* The ID selector is used to specify a style for a single, unique element.      */
+/*                                                                               */
+/*  #main { }                                                                    */
+/*                                                                               */
+/* The CLASS selector is used to specify a style for a group of elements. Unlike */
+/* the id selector, the class selector is most often used on several elements.   */
+/*                                                                               */
+/*  .main { }                                                                    */
+/* ----------------------------------------------------------------------------- */
+
+.igfont_small {
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000000;
+}
+
+a.iglink1       { text-decoration: none; color: #003399; }
+a.iglink1:hover { text-decoration: underline; color: #cd0000; }
+
+a.iglink2       { text-decoration: none; color: #0000cd; }
+a.iglink2:hover { text-decoration: none; color: #cd0000; }
+
+a.iglink3       { text-decoration: none; color: #ffff00; }
+a.iglink3:hover { text-decoration: underline; color: #ffff00; }
+
+#table_ig_signin {
+    border-collapse: collapse;
+    border-top: 2px solid #0000ff;
+    border-right: 2px solid #0000ff;
+    border-bottom: 0px solid #0000ff;
+    border-left: 2px solid #0000ff;
+    background-color: #ffffff;
+}
+
+#table_ig_signin td { padding: 5px 5px 5px 5px; }
+
+.table_main {
+    border-collapse: collapse; 
+    border-width: 2px; 
+    border-style: solid; 
+    border-color: #0000ff;  /*#9CC6BF; */
+}
+
+.table_main th {
+    border: 1px solid;
+    padding: 5px;
+    height: 40px;
+    background-color: #B0E2FF;  /*#F4FAF7; */
+    text-align: left;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 10pt; 
+    font-weight: normal;
+    color: #000000;  /*518883; */
+}
+
+.table_main td {
+    padding: 5px; 
+    color: #333333; 
+    background-color: #FFFFFF; 
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 10pt; 
+    font-weight: normal;
+}
+
+/* ---------------- */
+/* CSS for overlays */
+/* ---------------- */
+
+.trigger_img {
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    padding: 2px 2px 2px 2px;
+	
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.overlay_element {    /* the overlayed element */
+    display: none;
+    /*background-image: url(images/white.png);*/
+    width: 820px;
+    padding: 35px 35px 35px 35px;
+}
+
+.overlay_element .close {
+    background-image: url(images/close_red.png);
+    position: absolute; 
+    right: 10px; 
+    top: 10px;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+
+#overlay {
+    /* use a semi-transparent image for the overlay */
+    background-image: url(images/not_transparent.png);
+    color: #efefef;
+    height: 450px;     /* not sure what this one does */
+}
+
+div.contentWrap {
+    /* container for external content. uses vertical scrollbar, if needed */
+    height: 640px;       /*441px;*/
+    overflow-y: scroll;  /* auto; */
+}
+
+.dude { position: relative; background-color: #efefef; }
+
+.overlay_imgtxt {
+    padding: 5px 4px 2px 4px;
+    text-align: left;
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.prevImg {
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.nextImg {
+    cursor: pointer;
+    padding-left: 10px;
+}

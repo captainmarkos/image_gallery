@@ -1,0 +1,184 @@
+/* ----------------------------------------------------------------------------- */
+/* Image Gallery - Admin Style Sheet                    Mark Brettin  06/30/2011 */
+/*                                                                               */
+/* The ID selector is used to specify a style for a single, unique element.      */
+/*                                                                               */
+/*  #main { }                                                                    */
+/*                                                                               */
+/* The CLASS selector is used to specify a style for a group of elements. Unlike */
+/* the id selector, the class selector is most often used on several elements.   */
+/*                                                                               */
+/*  .main { }                                                                    */
+/* ----------------------------------------------------------------------------- */
+
+body { margin: 10px; }
+
+.igadmin_font1 {
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000000;
+}
+
+.igadmin_font2 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color: #0000cd;
+}
+
+.myinput {
+    color: #000000;
+    background: #f6f6f6;
+    border: 1px solid #30b9f3;
+    font-size: 12px;
+    padding: 0 0 2px 0;
+    margin: 0 0 4px 0;
+}
+
+.mybutton {
+    border: 1px solid #30b9f3;
+    background: #707070;
+    color: #f0f0f0;
+    font-size: 12px;
+    padding: 0 0 2px 0;
+    margin: 0 0 4px 0;
+    width: 46px;
+}
+
+.myselect {
+    color: #000000;
+    background: #ffee00;
+    border: 1px solid #30b9f3;
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+.mytextarea {
+    color: #000000;
+    background: #f6f6f6;
+    border: 1px solid #30b9f3;
+    font-size: 12px;
+}
+
+
+.colselect {
+    /* collection and album select list */
+    color: #000000;
+    background: #ffee00;
+    border: 1px solid #30b9f3;
+    min-width: 150px;
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 10pt;
+}
+
+/* ------------------------------------ */
+
+.table_login {
+    border-collapse: collapse; 
+    border: 0px solid #0000ff; 
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.table_login td {
+    text-align: right;
+    padding: 0 2px 0 0;
+    margin: 0 0 0 0;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 10pt; 
+    font-weight: normal;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ------------------------------------ */
+
+.table_main {
+    border-collapse: collapse; 
+    border-width: 2px; 
+    border-style: solid; 
+    border-color: #0000ff;  /*#9CC6BF; */
+}
+
+.table_main th {
+    border: 1px solid;
+    padding: 5px;
+    height: 40px;
+    background-color: #B0E2FF;  /*#F4FAF7; */
+    text-align: left;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 10pt; 
+    font-weight: normal;
+    color: #000000;  /*518883; */
+}
+
+.table_main td {
+    padding: 5px; 
+    color: #333333; 
+    background-color: #FFFFFF; 
+    text-align: left;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 10pt; 
+    font-weight: normal;
+}
+
+/* ------------------------------------ */
+
+.table_grey {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: #666666;
+}
+
+.table_grey th {
+    background-color: #EEEEEE;
+}
+
+.table_grey td {
+    background-color: #FFFFFF;
+}
+
+/* ------------------------------------ */
+
+.table_color {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: #666666;
+}
+
+.table_color th {
+    background-color: #c0c0c0;
+}
+
+.table_color td {
+    background-color: #ffffff;
+}
+
+/* ------------------------------------ */
+
+.text1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #ff0000;
+}
+
+
+a { 
+    text-decoration: none;
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #00008b;
+}
+
+
+a:hover {
+    text-decoration: underline;
+    font-family:  Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #cd0000; 
+}
+
+
