@@ -3,10 +3,10 @@
     session_start();
 
     // db properties
-    $dbhost = 'bluewild.db.9389481.hostedresource.com';
-    $dbuser = 'bluewild';
-    $dbpass = 'mdbzaq1@Wsx';
-    $dbname = 'bluewild';
+    $dbhost = 'localhost';
+    $dbuser = 'dbuser';
+    $dbpass = 'password';
+    $dbname = 'test';
 
 
     // A gallery can have an image used as a thumbnail.  We save the collection images here.
