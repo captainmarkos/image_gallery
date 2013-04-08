@@ -1,0 +1,8 @@
+images/collection/*.jpg
+images/gallery/*.jpg
+images/album/*.jpg
+images/images/*.jpg
+images/images/display_images/*.jpg
+images/images/thumbnails/*.jpg
+lib/config.php
+
