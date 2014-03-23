@@ -37,7 +37,8 @@
 <center>
 
 <?php
-        if(isset($_SESSION['email']) && $_SESSION['email'] != '') {
+        if($_SESSION['email'] != '')
+        {
             $_SESSION['manage_photos'] = true;
 ?>
             <table width="750" border="0" id="table_ig_signin">
