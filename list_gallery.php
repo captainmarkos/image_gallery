@@ -1,19 +1,23 @@
 <?php
 
+require_once('lib/db_helper.php');
+require_once('lib/image_gallery.php');
+
+$db_helper = new DBHelper($dbconn);
+$image_gallery = new ImageGallery($dbconn);
+
     // A gallery can have many collections.  List all the galleries.
     // Perform a JOIN because we need to get a collection count for each gallery.
     $sql  = "SELECT galleries.id, galleries.name, galleries.image, ";
-    $sql .= "COUNT(collections.id) AS numcollections FROM galleries LEFT JOIN ";
-    $sql .= "collections ON galleries.id = collections.gallery_id GROUP BY ";
-    $sql .= "galleries.id ORDER BY galleries.name";
-    $result = mysql_query($sql) or die('Error, list galleries failed. ' . mysql_error());
+    $sql .= "count(collections.id) AS numcollections FROM galleries ";
+    $sql .= "LEFT JOIN collections ON galleries.id=collections.gallery_id ";
+    $sql .= "GROUP BY galleries.id ORDER BY galleries.name";
+    $result = $dbconn->query($sql) or die('Error, list galleries failed. ' . $dbconn->error());
 
-    if(mysql_num_rows($result) == 0) 
-    {
+    if($result->num_rows == 0) {
 	echo "No galleries yet";
     } 
-    else 
-    {
+    else {
         echo "<!-- BEGIN list_gallery -->\n";
 	echo '<table width="700" border="0" cellspacing="1" cellpadding="2" align="center">';
         echo "\n";
@@ -25,10 +29,8 @@
 	// width of each column in percent
 	$colWidth = (int)(100/$colsPerRow);
 	$i = 0;
-	while($row = mysql_fetch_assoc($result)) 
-        {
-	    if($i % $colsPerRow == 0)
-            {		
+	while($row = $result->fetch_assoc()) {
+	    if($i % $colsPerRow == 0) {
 		echo "<tr>\n";   // start a new row
 	    }
 
@@ -38,7 +40,7 @@
 
 	    echo '<td width="' . $colWidth . '%">' . 
 	         '<a class="iglink2" href="index.php?page=list_collection&gallery_id=' . $row['id'] . '">' .
-	         '<img src="' . getImage('gallery', $row['image']) . '" width="100" height="75" border="1" />' .
+	         '<img src="' . $image_gallery->getImage('gallery', $row['image']) . '" width="100" height="75" border="1" />' .
                  '<br />' . $row['name'] . '</a><br />' . $numCollections . "</td>\n";
 
 	    if(($i % $colsPerRow) == $colsPerRow - 1) {	echo '</tr>'; }    // end this row
@@ -58,4 +60,5 @@
 	echo "</table>\n";
         echo "<!-- END list_gallery -->\n";
 }
+
 ?>

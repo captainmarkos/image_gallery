@@ -1,42 +1,47 @@
 <?php
 
-    // This script displays the actual image and is called from the overlay triggers
-    // in list_image.php.  It needs the images.id to find the image in the table.
-    //
-    // We would like to display the image as big as possible however each user is going
-    // to have different display resolutions and therefore we dont want to display the
-    // image to big on a small resolution.
-    //
-    // What we will do is find the size of the browser window (viewport) and this will
-    // will help us to display the image in a more appropriate size.  This of course is
-    // not a fix-all method but I think in most cases it will be suitable.
-    //
-    include 'lib/config.php';
-    include 'lib/functions.php';
+// This script displays the actual image and is called from the overlay triggers
+// in list_image.php.  It needs the images.id to find the image in the table.
+//
+// We would like to display the image as big as possible however each user is going
+// to have different display resolutions and therefore we dont want to display the
+// image to big on a small resolution.
+//
+// What we will do is find the size of the browser window (viewport) and this will
+// will help us to display the image in a more appropriate size.  This of course is
+// not a fix-all method but I think in most cases it will be suitable.
+//
+require_once('lib/config.php');
+require_once('lib/image_gallery.php');
+require_once('lib/db_helper.php');
 
-    if(!isset($_GET['image_id']) || $_GET['image_id'] == '') { exit; }
+$image_gallery = new ImageGallery($dbconn);
+$db_helper = new DBHelper($dbconn);
 
-    $image_id = $_GET['image_id'];
+if(!isset($_REQUEST['image_id']) || $_REQUEST['image_id'] == '') { exit; }
 
-    $sql  = "SELECT id, album_id, title, image, image_width, image_height, display_image, ";
-    $sql .= "description FROM images WHERE id=$image_id";
-    $result = mysql_query($sql) or die('ERROR: view_image.php failed. ' . mysql_error());
-    if(mysql_num_rows($result) == 0) { die('ERROR: view_image.php - No image found. '); }
-    $row = mysql_fetch_assoc($result);
+$image_id = $_REQUEST['image_id'];
 
-    $actual_image = WWWROOT_IMAGES_IMG_DIR . $row['image'];
-    $display_image = WWWROOT_IMAGES_IMG_DISPLAY_DIR . $row['display_image'];
-    $desc = $row['description'];
-    $desc = preg_replace("/\r/", "", htmlentities($desc, ENT_QUOTES));
-    $desc = preg_replace("/\n/", "<br />", $desc);
-    $title = $row['title'];
-    $album_id = $row['album_id'];
+$sql  = "SELECT id, album_id, title, image, image_width, image_height, ";
+$sql .= "display_image, description FROM images WHERE id=?";
+$sql = $db_helper->construct_secure_query($sql, $image_id);
+$res = $dbconn->query($sql) or die('ERROR: view_image.php failed. ' . $dbconn->error());
+if($res->num_rows == 0) { die('ERROR: view_image.php - No image found. '); }
+$row = $res->fetch_assoc();
 
-    $image_width = $row['image_width'];
-    $image_height = $row['image_height'];
+$actual_image = WWWROOT_IMAGES_IMG_DIR . $row['image'];
+$display_image = WWWROOT_IMAGES_IMG_DISPLAY_DIR . $row['display_image'];
+$desc = $row['description'];
+$desc = preg_replace("/\r/", "", htmlentities($desc, ENT_QUOTES));
+$desc = preg_replace("/\n/", "<br />", $desc);
+$title = $row['title'];
+$album_id = $row['album_id'];
 
-    $base_url = "http://" . $_SERVER['SERVER_NAME'];
-    $direct_url = $base_url . WWWROOT_IMAGES_IMG_DIR . $row['image'];
+$image_width = $row['image_width'];
+$image_height = $row['image_height'];
+
+$base_url = "http://" . $_SERVER['SERVER_NAME'];
+$direct_url = $base_url . WWWROOT_IMAGES_IMG_DIR . $row['image'];
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -55,16 +60,15 @@
     // ----------------------------------------------------------------------------------------
     $sql  = "SELECT id, album_id, image, image_width, image_height, display_image, ";
     $sql .= "title, description FROM images WHERE album_id=$album_id ORDER BY id";
-    $result = mysql_query($sql) or die('ERROR: view_image.php failed. ' . mysql_error());
-    if((mysql_num_rows($result) == 0) || ($album_id == ''))
+    $res = $dbconn->query($sql) or die('ERROR: view_image.php failed. ' . $dbconn->error());
+    if(($res->num_rows == 0) || ($album_id == ''))
     {
 	return;
     }
     $el = 0;
     print "var curr_idx = 0;\n";
     print "var asar = new Array();\n";
-    while($row = mysql_fetch_assoc($result))
-    {
+    while($row = $res->fetch_assoc()) {
         if($image_id == $row['id']) { print "curr_idx = " . $el . ";\n"; }
 
         $tmp_desc = preg_replace("/\r/", "", htmlentities($row['description'], ENT_QUOTES));

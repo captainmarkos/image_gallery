@@ -1,7 +1,7 @@
 <?php
 
     require_once '../lib/config.php';
-    require_once '../lib/functions.php';
+    require_once '../lib/image_gallery.php';
 
     $errMsg = '';
     $email = isset($_POST['email']) && ($_POST['email'] != '') ? $_POST['email'] : '';
